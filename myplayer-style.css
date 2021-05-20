@@ -75,7 +75,7 @@ body.block {
 padding-right: 0;
 padding-left: 0;
 
-  background-color: rgba(226, 14, 14, 0.274);
+  background-color: rgba(0, 0, 0, 0.24);
    
   z-index: 3;
 
@@ -111,6 +111,19 @@ left:0;right:0; /* horizontal center */
   color: rgba(255, 255, 240, 0.795);
   cursor: default;
 }
+#time-counter{
+  font-family: "vhs", Arial, sans-serif;
+  font-weight: lighter;
+  font-style: normal;
+  font-size: 1.8vw;
+   position: absolute;
+  color: rgba(255, 255, 240, 0.795);
+  cursor: default;
+  bottom: 0;
+  margin-bottom: 5vh;
+  margin-left: 5vw;
+}
+
 #playpause-button {
   font-family: "vhs", Arial, sans-serif;
   font-weight: lighter;
@@ -126,7 +139,6 @@ left:0;right:0; /* horizontal center */
 
   cursor: pointer;
 }
-
 #bar-bottom {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.233);
@@ -134,7 +146,7 @@ left:0;right:0; /* horizontal center */
   padding-right: 0;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 0.1vh;
+  margin-bottom: 0.1%;
   height: 5vh;
  
   
@@ -193,8 +205,15 @@ left:0;right:0; /* horizontal center */
     border-radius: 0%;
     background-color: transparent;
     height: 30px;
-    position: relative;
+     
     align-items: center;
+    margin-left: 1%;
+    margin-right: 3%;
+
+    position:relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
   }
   #progressBuffered {
     background-color: rgba(255, 255, 255, 0.178);

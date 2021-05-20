@@ -22,6 +22,8 @@
 
     var showingElements=false;
 
+    var durationVideo;
+
     /* ---------->  [ PLAYER ] <---------   */
 
     /*playsinline	true	
@@ -82,10 +84,56 @@
     player.on('qualitychange', function (e) {
         // console.log(e);
     });
+    player.on('progress', function (getAll) {
+       
+        var percentage = (getAll.percent*100)+"%"
+        var pp = document.getElementById("progressBuffered");
+        pp.style.width = percentage;
+       // console.log(percentage);
+         
+    });
+    player.on('timeupdate', function (getAll) {
+        currentPos = getAll.seconds; //get currentime
+        vdoEndTym = getAll.duration; //get video duration
+        percentage = (getAll.percent * 100) + "%";
+        seconds = getAll.seconds;
+       
+     
+    
+        var ctn = document.getElementById("time-counter");
+        ctn.innerHTML=format(seconds)+" / "+format(vdoEndTym);
+        var pp = document.getElementById("progressPlayed");
+        pp.style.width = percentage;
+    
+        document.getElementById("customRange1").value = ""+(getAll.percent * 100);
 
+    });
+
+
+
+        player.getDuration().then(function(dur) {
+            // `duration` indicates the duration of the video in seconds
+            durationVideo = dur;
+            
+          }) ;
+
+      
     /*   END------------> PLAYER <---------------    */
 
 
+    var range = document.getElementById("customRange1");
+    var d=0.0;
+    
+       range.addEventListener('input', function () {
+ 
+           var percent = range.value;
+   
+           var newTime=(percent*durationVideo)/100;
+           
+           console.log(percent+ "  -  new val: " +newTime);
+            player.setCurrentTime(newTime);
+
+         }, false);    
 
     /* 
     function getVideoSize(){
@@ -363,4 +411,23 @@ function vhsBlur(timerD){
     document.body.style.animationIterationCount="infinite";
     document.body.style.animationDirection="alternate";
       
+    }
+
+
+
+    function format(time) {   
+        // Hours, minutes and seconds
+        var hrs = ~~(time / 3600);
+        var mins = ~~((time % 3600) / 60);
+        var secs = ~~time % 60;
+    
+        // Output like "1:01" or "4:03:59" or "123:03:59"
+        var ret = "";
+        if (hrs > 0) {
+            ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+        }
+        ret += "" +  (mins < 10 ? "0":"")+mins + ":" + (secs < 10 ? "0" : "");
+        ret += "" + secs;
+ 
+        return ret;
     }
