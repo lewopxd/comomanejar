@@ -43,15 +43,18 @@
     player.on('play', function () {
         console.log('played the video!');
         isPaused = false;
+        vhsBlur("0.05s");
     });
 
     player.on('pause', function () {
         console.log('paused the video!');
         isPaused = true;
+        vhsBlur("0.01s");
     });
 
     player.on('bufferstart', function () {
         console.log('start buffer the video!');
+        hideElementsContaineronPlay();
     });
 
     player.on('bufferend', function () {
@@ -273,10 +276,7 @@ timer=3000;
         
         var elemntsContainer = document.getElementById("containerElements");
         var ppButton = document.getElementById("playpause-button");
-     
-
-      
-
+   
         elemntsContainer.style.opacity = "0";
         
         //document.body.classList.add('block');
@@ -298,4 +298,70 @@ timer=3000;
         showingElements=true;
         console.log("showed");
 
+    }
+
+/*         ->>>>>>>>>>>> FULL SCREEN <<<<<<<<<<<<<<<                      */
+
+
+document.getElementById('fullscreen-icon').onclick = function () {
+    toggleFullScreen();
+}
+
+function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+       openFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+       closeFullscreen();
+      }
+    }
+  }
+
+
+    /* Get the documentElement (<html>) to display the page in fullscreen */
+
+
+var elem = document.documentElement;
+
+/* View in fullscreen */
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+  document.getElementById("fullscreen-icon2").style.opacity="1";
+  document.getElementById("fullscreen-icon").style.opacity="0";
+}
+
+/* Close fullscreen */
+function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) { /* Safari */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE11 */
+    document.msExitFullscreen();
+  }
+  document.getElementById("fullscreen-icon").style.opacity="1";
+  document.getElementById("fullscreen-icon2").style.opacity="0";
+}
+ 
+
+
+
+/*  >>>>>>>>>> end     FULL SCREEN   <<<<<<<<< */
+
+
+
+function vhsBlur(timerD){
+    document.body.style.color="#eee";
+    document.body.style.textShadow="0.06rem 0 0.06rem #ea36af, -0.125rem 0 0.06rem #75fa69";
+     document.body.style.animationDuration=timerD;
+    document.body.style.animationName="textflicker";
+    document.body.style.animationIterationCount="infinite";
+    document.body.style.animationDirection="alternate";
+      
     }

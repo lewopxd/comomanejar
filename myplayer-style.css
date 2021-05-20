@@ -146,7 +146,37 @@ body.block {
   -webkit-filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.767));
   filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.815));
   /* Similar syntax to box-shadow */
-}
+  cursor: pointer;
+  transition: 0.5s opacity;
+ 
+} 
+#fullscreen-icon2 {
+    position: absolute;
+    width: 5vw;
+    height: 5vw;
+  
+    fill: rgb(255, 255, 255);
+  
+    top: 0.8vw;
+    right: 0;
+    padding-right: 0;
+    margin-right: 0;
+    -webkit-filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.767));
+    filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.815));
+    /* Similar syntax to box-shadow */
+    cursor: pointer;
+  opacity: 0;
+  transition: 0.5s opacity;
+  }
+@keyframes textflicker {
+    from {
+      text-shadow: 1px 0 0 #ea36af, -2px 0 0 #75fa69;
+    }
+    to {
+      text-shadow: 2px 0.5px 2px #ea36af, -1px -0.5px 2px #75fa69;
+    }
+  }
+  
 @font-face {
   font-family: "vhs";
   src: url("./fonts/vhs-webfont.woff2") format("woff2"),
