@@ -41,39 +41,41 @@
     var player = new Vimeo.Player('vimeo-video', options);
 
     player.on('play', function () {
-        console.log('played the video!');
+        //console.log('played the video!');
         isPaused = false;
         vhsBlur("0.05s");
     });
 
     player.on('pause', function () {
-        console.log('paused the video!');
+        //console.log('paused the video!');
         isPaused = true;
         vhsBlur("0.01s");
     });
 
     player.on('bufferstart', function () {
-        console.log('start buffer the video!');
+       // console.log('start buffer the video!');
         hideElementsContaineronPlay();
     });
 
     player.on('bufferend', function () {
-        console.log('bufferended the video!');
+        //console.log('bufferended the video!');
         if (isFirstTime) {
             player.pause();
             var vimeoVideo = document.getElementById('vimeo-video');
             vimeoVideo.style.opacity = ".5";
+            resizeContainerElements();
             isFirstTime = false;
+
         }
         showElementsContaineronPause();
 
     });
 
     player.on('resize', function (e) {
-        console.log(e);
+       // console.log(e);
         videoW = e.videoWidth;
         videoH = e.videoHeight;
-        console.log("Video dimensions: " + videoW + " x " + videoH);
+        console.log("Player.on resize: Video dimensions: " + videoW + " x " + videoH);
         resizeContainerElements();
     });
 
@@ -111,14 +113,11 @@
 
 
         console.log("Il do it");
-        var newElementHeight = (videoH * screenW) / videoW;
-        console.log(screenW + "  x  " + screenH);
-        console.log(videoW + "    x  " + videoH);
-        console.log("newelemenH: " + newElementHeight);
-
-        var x = document.getElementById("containerElements");
-
-        x.style.height = "" + newElementHeight + "px";
+        
+       var x = document.getElementById("containerElements");
+ 
+        x.style.height = "" + (videoH/videoW)*100 + "vw";
+        x.style.maxWidth = "" + (videoW/videoH)*100 + "vh";
 
 
 
@@ -129,9 +128,9 @@
         screenW = window.innerWidth;
         screenH = window.innerHeight;
 
-        console.log("new: " + screenW + " - " + screenH);
+        console.log("browserResize: " + screenW + " - " + screenH);
 
-        if (screenW > 299) {
+        if (screenW > 0) {
             resizeContainerElements();
         }
 
@@ -160,7 +159,7 @@
  
            if(showingElements){
 
-            console.log("play/pause " + "isPaused?" + isPaused);
+           
             if (isPaused) {
 
                 hideElementsContaineronPlay();
@@ -236,7 +235,7 @@ function onMove(){
      
 justone++;
 if (justone==1){
-console.log("fisrt move");
+//console.log("fisrt move");
 showElementsContainerOnMove(true);
 timer=3000;
 }
@@ -244,7 +243,7 @@ timer=3000;
     clearTimeout(timeout);
     timeout = setTimeout(function () {
       
-           console.log("chao");
+           //console.log("chao");
            showElementsContainerOnMove(false);
            justone=0;
     }, timer);
@@ -283,7 +282,7 @@ timer=3000;
         //document.body.click();
 
         showingElements=false;
-        console.log("hiden");
+        //console.log("hiden");
     }
 
     function showElementsContaineronPause() {
@@ -296,7 +295,7 @@ timer=3000;
         //document.body.click();
 
         showingElements=true;
-        console.log("showed");
+        //console.log("showed");
 
     }
 

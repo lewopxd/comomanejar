@@ -72,18 +72,25 @@ body.block {
   margin-right: 0;
 }
 #containerElements {
-  position: relative;
+padding-right: 0;
+padding-left: 0;
 
-  background-color: rgba(0, 0, 0, 0.205);
-  width: 100vw;
+  background-color: rgba(226, 14, 14, 0.274);
+   
   z-index: 3;
 
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: 0;
-  margin-right: 0;
+ 
   opacity: 0;
   transition: 0.8s opacity;
+
+width: 100vw; 
+/*height: 56.25vw; /* height:width ratio = 9/16 = .5625  */
+max-height: 100vh;
+/*max-width: 177.78vh; /* 16/9 = 1.778 */
+margin: auto;
+position: absolute;
+top:0;bottom:0; /* vertical center */
+left:0;right:0; /* horizontal center */
 }
 #dateTitle {
   font-family: "vhs", Arial, sans-serif;
@@ -127,22 +134,31 @@ body.block {
   padding-right: 0;
   margin-left: 0;
   margin-right: 0;
+  margin-bottom: 0.1vh;
   height: 5vh;
-  bottom: 0;
-  left: 0;
+ 
+  
   z-index: 100;
+  bottom: 0;
+
 }
 #fullscreen-icon {
   position: absolute;
-  width: 5vw;
-  height: 5vw;
-
+ /* width: 5vw;
+  height: 5vw;*/
+  max-width: 1.5vw;
+  max-height: 1.5vw;
+  min-width: 16px;
+  min-height: 16px;
   fill: rgb(255, 255, 255);
+  bottom: 0;
+  right: 0;  
+  margin-right: 1vw;  
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 
-  top: 0.8vw;
-  right: 0;
-  padding-right: 0;
-  margin-right: 0;
   -webkit-filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.767));
   filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.815));
   /* Similar syntax to box-shadow */
@@ -151,23 +167,146 @@ body.block {
  
 } 
 #fullscreen-icon2 {
-    position: absolute;
-    width: 5vw;
-    height: 5vw;
-  
-    fill: rgb(255, 255, 255);
-  
-    top: 0.8vw;
-    right: 0;
-    padding-right: 0;
-    margin-right: 0;
-    -webkit-filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.767));
-    filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.815));
-    /* Similar syntax to box-shadow */
-    cursor: pointer;
-  opacity: 0;
-  transition: 0.5s opacity;
+  position: absolute;
+  /* width: 5vw;
+   height: 5vw;*/
+   max-width: 1.5vw;
+   max-height: 1.5vw;
+   min-width: 16px;
+   min-height: 16px;
+   fill: rgb(255, 255, 255);
+   bottom: 0;
+   right: 0;  
+   margin-right: 1vw;  
+   position: absolute;
+   top: 50%;
+   -ms-transform: translateY(-50%);
+   transform: translateY(-50%);
+ 
+   -webkit-filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.767));
+   filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.815));
+   /* Similar syntax to box-shadow */
+   cursor: pointer;
+   transition: 0.5s opacity;
+   opacity: 0;
+  }.progress {
+    border-radius: 0%;
+    background-color: transparent;
+    height: 30px;
+    position: relative;
+    align-items: center;
   }
+  #progressBuffered {
+    background-color: rgba(255, 255, 255, 0.178);
+    height: 3px;
+    position: absolute;
+  }
+  #progressPlayed {
+    background-color: rgba(255, 255, 255, 0.822);
+    height: 3px;
+    position: absolute;
+  }
+  #contador {
+    font-family: "vhs", Arial, sans-serif;
+    font-weight: lighter;
+    font-style: normal;
+  }
+  
+  #customRange1 {
+      width: 100%;
+      margin-bottom: 0;
+      margin-top:     2px;
+      background-color: transparent;
+      -webkit-appearance: none;
+      position:absolute;
+      top:1px;
+       
+    }
+    #customRange1:focus {
+      outline: none;
+    }
+     
+    #customRange1::-webkit-slider-runnable-track {
+      background: rgba(209, 209, 209, 0.082);   /*fondo no focus*/
+      border: 0.1px solid rgba(1, 1, 1, 0);
+      border-radius: 24.5px;
+      width: 100%;
+      height: 5px;
+      cursor: pointer;
+    }
+    #customRange1::-webkit-slider-thumb {
+      margin-top: -5px;
+      width: 10px;
+      height: 10px;
+      background: #ffffff;
+      border: 1.8px solid #5f5f5fb4;
+      border-radius: 50px;
+      cursor: pointer;
+      -webkit-appearance: none;
+    }
+    #customRange1:focus::-webkit-slider-runnable-track {  /*fondo focus */
+      background: #ffffff33;
+    }
+    #customRange1::-moz-range-track {
+      background: rgba(209, 209, 209, 0);
+      border: 0.1px solid rgba(1, 1, 1, 0.2);
+      border-radius: 24.5px;
+      width: 100%;
+      height: 5px;
+      cursor: pointer;
+    }
+    #customRange1::-moz-range-thumb {
+      width: 10px;
+      height: 10px;
+      background: #ffffff;
+      border: 1.8px solid #adadadb7;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+    #customRange1::-ms-track {
+      background: transparent;
+      border-color: transparent;
+      border-width: 7.5px 0;
+      color: transparent;
+      width: 100%;
+      height: 5px;
+      cursor: pointer;
+    }
+    #customRange1::-ms-fill-lower {
+      background: #545454;
+      border: 0.1px solid rgba(1, 1, 1, 0.2);
+      border-radius: 49px;
+    }
+    #customRange1::-ms-fill-upper {
+      background: rgba(209, 209, 209, 0);
+      border: 0.1px solid rgba(1, 1, 1, 0.2);
+      border-radius: 49px;
+    }
+    #customRange1::-ms-thumb {
+      width: 10px;
+      height: 10px;
+      background: #ffffff;
+      border: 1.8px solid #8888883b;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 0px;
+      /*Needed to keep the Edge thumb centred*/
+    }
+    #customRange1:focus::-ms-fill-lower {
+      background: rgba(209, 209, 209, 0);
+    }
+    #customRange1:focus::-ms-fill-upper {
+      background: #ffffff2c;
+    }
+    /*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
+    how to remove the virtical space around the range input in IE*/
+    @supports (-ms-ime-align:auto) {
+      /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+      #customRange1 {
+        margin: 0;
+        /*Edge starts the margin from the thumb, not the track as other browsers do*/
+      }
+    }
 @keyframes textflicker {
     from {
       text-shadow: 1px 0 0 #ea36af, -2px 0 0 #75fa69;
