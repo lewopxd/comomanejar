@@ -62,7 +62,7 @@
             vimeoVideo.style.opacity = ".5";
             isFirstTime = false;
         }
-        showElementsContainer(true);
+        showElementsContaineronPause();
 
     });
 
@@ -140,9 +140,10 @@
 
 
     document.getElementById('playpause-button').onclick = function () {
-
+        var vimeoVideo = document.getElementById('vimeo-video');
         if (isFirstClick) {
             isFirstClick = false;
+            vimeoVideo.style.opacity="1";
         }
         var element = document.getElementById('containerElements');
 
@@ -151,7 +152,7 @@
 
         var ppbutton = document.getElementById('playpause-button');
         var dateTitle = document.getElementById('dateTitle');
-        var vimeoVideo = document.getElementById('vimeo-video');
+        
 
  
            if(showingElements){
@@ -272,6 +273,7 @@ timer=3000;
         
         var elemntsContainer = document.getElementById("containerElements");
         var ppButton = document.getElementById("playpause-button");
+     
 
       
 
