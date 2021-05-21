@@ -64,7 +64,7 @@
         if (isFirstTime) {
             player.pause();
             var vimeoVideo = document.getElementById('vimeo-video');
-            vimeoVideo.style.opacity = ".5";
+            vimeoVideo.style.opacity = "8";
             resizeContainerElements();
             isFirstTime = false;
 
@@ -130,8 +130,12 @@
    
            var newTime=(percent*durationVideo)/100;
            
-           console.log(percent+ "  -  new val: " +newTime);
-            player.setCurrentTime(newTime);
+          console.log(percent+ "  -  new val: " +newTime);
+            
+           var pp = document.getElementById("progressPlayed");
+           pp.style.width = percent+"%";
+            
+           player.setCurrentTime(newTime);
 
          }, false);    
 
@@ -159,15 +163,12 @@
 
     function resizeContainerElements() {
 
-
         console.log("Il do it");
         
        var x = document.getElementById("containerElements");
  
         x.style.height = "" + (videoH/videoW)*100 + "vw";
         x.style.maxWidth = "" + (videoW/videoH)*100 + "vh";
-
-
 
     }
 
@@ -431,3 +432,35 @@ function vhsBlur(timerD){
  
         return ret;
     }
+
+
+
+
+    /**   >>>>>> atajos de teclado  */
+
+    
+    window.addEventListener('keydown', e => {
+      console.log(e.code);
+       if(e.code=="Space"){
+            if(isPaused){
+                player.play();
+                hideElementsContaineronPlay();
+            }else{
+                player.pause();
+                showElementsContaineronPause();
+            }
+       } 
+
+    });
+
+
+    
+    /** 
+   var  objRef = window.toolbar;
+
+   objRef.visible
+
+
+   console.log(objRef);
+
+   */
