@@ -75,7 +75,7 @@ body.block {
 padding-right: 0;
 padding-left: 0;
 
-  background-color: rgba(245, 3, 3, 0.24);
+  background-color: rgba(15, 1, 1, 0.192);
    
   z-index: 3;
 
@@ -207,8 +207,8 @@ left:0;right:0; /* horizontal center */
     height: 30px;
      
     align-items: center;
-    margin-left: 1%;
-    margin-right: 3%;
+    margin-left: 30px;
+    margin-right: 50px;
 
     position:relative;
   top: 50%;
@@ -216,12 +216,14 @@ left:0;right:0; /* horizontal center */
   transform: translateY(-50%);
   }
   #progressBuffered {
-    background-color: rgba(255, 255, 255, 0.178);
+    background-color: rgba(255, 255, 255, 0.301);
     height: 3px;
     position: absolute;
+    border-radius: 2px;
+     
   }
   #progressPlayed {
-    background-color: rgba(255, 255, 255, 0.822);
+    background-color: rgba(255, 255, 255, 0);
     height: 3px;
     position: absolute;
   }
@@ -230,15 +232,15 @@ left:0;right:0; /* horizontal center */
     font-weight: lighter;
     font-style: normal;
   }
-  
   #customRange1 {
       width: 100%;
       margin-bottom: 0;
-      margin-top:     2px;
+      
       background-color: transparent;
       -webkit-appearance: none;
       position:absolute;
-      top:1px;
+      background: linear-gradient(to right, #ffffff9a 0%, #ffffff9a  0%, rgba(255, 255, 255, 0.116) 0%, rgba(250, 250, 250, 0.116) 100%);
+      height: 3px;
        
     }
     #customRange1:focus {
@@ -246,7 +248,7 @@ left:0;right:0; /* horizontal center */
     }
      
     #customRange1::-webkit-slider-runnable-track {
-      background: rgba(209, 209, 209, 0.082);   /*fondo no focus*/
+      background: rgba(2, 253, 2, 0);   /*fondo no focus*/
       border: 0.1px solid rgba(1, 1, 1, 0);
       border-radius: 24.5px;
       width: 100%;
@@ -258,13 +260,14 @@ left:0;right:0; /* horizontal center */
       width: 10px;
       height: 10px;
       background: #ffffff;
-      border: 1.8px solid #5f5f5fb4;
+      border: 5px solid #ffffff;
       border-radius: 50px;
       cursor: pointer;
       -webkit-appearance: none;
+      
     }
     #customRange1:focus::-webkit-slider-runnable-track {  /*fondo focus */
-      background: #ffffff33;
+      background: #ffffff00;
     }
     #customRange1::-moz-range-track {
       background: rgba(209, 209, 209, 0);
@@ -277,7 +280,7 @@ left:0;right:0; /* horizontal center */
     #customRange1::-moz-range-thumb {
       width: 10px;
       height: 10px;
-      background: #ffffff;
+      background: #ffffffe7;
       border: 1.8px solid #adadadb7;
       border-radius: 50px;
       cursor: pointer;
@@ -292,12 +295,12 @@ left:0;right:0; /* horizontal center */
       cursor: pointer;
     }
     #customRange1::-ms-fill-lower {
-      background: #545454;
+      background: #f5f5f5;
       border: 0.1px solid rgba(1, 1, 1, 0.2);
       border-radius: 49px;
     }
     #customRange1::-ms-fill-upper {
-      background: rgba(209, 209, 209, 0);
+      background: rgba(141, 141, 141, 0.356);
       border: 0.1px solid rgba(1, 1, 1, 0.2);
       border-radius: 49px;
     }
@@ -312,7 +315,7 @@ left:0;right:0; /* horizontal center */
       /*Needed to keep the Edge thumb centred*/
     }
     #customRange1:focus::-ms-fill-lower {
-      background: rgba(209, 209, 209, 0);
+      background: rgba(209, 209, 209, 0.89);
     }
     #customRange1:focus::-ms-fill-upper {
       background: #ffffff2c;
