@@ -69,9 +69,11 @@ player.on('bufferend', function () {
         vimeoVideo.style.opacity = "8";
         resizeContainerElements();
         isFirstTime = false;
+showElementsContaineronPause();
+
 
     }
-    showElementsContaineronPause();
+    
 
 });
 
@@ -99,6 +101,7 @@ player.on('timeupdate', function (getAll) {
     vdoEndTym = getAll.duration; //get video duration
     percentage = (getAll.percent * 100) + "%";
     seconds = getAll.seconds;
+    durationVideo=vdoEndTym;
 
 
 
@@ -114,11 +117,6 @@ player.on('timeupdate', function (getAll) {
 
 
 
-player.getDuration().then(function (dur) {
-    // `duration` indicates the duration of the video in seconds
-    durationVideo = dur;
-
-});
 
 
 /*   END------------> PLAYER <---------------    */
@@ -135,7 +133,7 @@ range.addEventListener('input', function () {
 
     var newTime = (percent * durationVideo) / 100;
 
-    console.log(percent + "  -  new val: " + newTime);
+    //console.log(percent + "  -  new val: " + newTime);
 
     var pp = document.getElementById("progressPlayed");
     // pp.style.width = percent+"%";
@@ -147,13 +145,28 @@ range.addEventListener('input', function () {
 
     var value = (this.value - this.min) / (this.max - this.min) * 100;
     setCustomRangeColor(value);
+    showElementsContaineronPause();
     player.setCurrentTime(newTime);
+    //console.log('custom range: is pause?: '+isPaused);
 
 
 }, false);
 
-range.addEventListener('inputchange', function () {
+range.addEventListener('change', function () {
     userIsMovingProgress =false;
+   console.log("pregress: inputchange");
+   onMove();
+}, false);
+
+range.addEventListener('mousedown', function () {
+    userIsMovingProgress =true;
+   showElementsContaineronPause();
+}, false);
+
+range.addEventListener('mouseup', function () {
+    userIsMovingProgress =false;
+    
+   onMove();
 }, false);
 
 
@@ -299,7 +312,11 @@ document.getElementById('containerElements').addEventListener('mousemove', e => 
     }
 
     // console.log(e.clientX); 
+    if(!userIsMovingProgress){
     onMove();
+}else{
+    showElementsContaineronPause();
+}
 
 
 });
@@ -312,21 +329,29 @@ function onMove() {
     var elemntsContainer = document.getElementById("containerElements");
     var ppButton = document.getElementById("playpause-button");
 
-
+//console.log("onMove: user is moving? " +userIsMovingProgress);
     justone++;
     if (justone == 1) {
-        //console.log("fisrt move");
+        console.log(">>>>>>>>>>>>>>>>>>fisrt move");
         showElementsContainerOnMove(true);
+
+         
         timer = 3000;
+
+        if(!userIsMovingProgress){
+
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+    
+            console.log(">>>>>>>>>>>>>>>>>>>>>>chao");
+            showElementsContainerOnMove(false);
+            justone = 0;
+        }, timer);
     }
 
-    clearTimeout(timeout);
-    timeout = setTimeout(function () {
+    }
 
-        //console.log("chao");
-        showElementsContainerOnMove(false);
-        justone = 0;
-    }, timer);
+    
 }
 
 
