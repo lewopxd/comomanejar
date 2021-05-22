@@ -139,7 +139,7 @@ range.addEventListener('input', function () {
 
     userIsMovingProgress=true;
     var percent = range.value;
-
+   
     var newTime = (percent * durationVideo) / 100;
 
     //console.log(percent + "  -  new val: " + newTime);
@@ -155,10 +155,13 @@ range.addEventListener('input', function () {
     var value = (this.value - this.min) / (this.max - this.min) * 100;
     setCustomRangeColor(value);
     showElementsContaineronPause();
-
+    if(percent==this.max){
+        newTime=durationVideo-0.5;
+        VideoIsEnd();
+     }
+    
     if(!isPaused){
     player.setCurrentTime(newTime);
-
     }
     //console.log('custom range: is pause?: '+isPaused);
 
@@ -169,9 +172,14 @@ range.addEventListener('change', function () {
     userIsMovingProgress =false;
    console.log("pregress: inputchange");
 
-   if(isPaused){
+   if(isPaused){   
+    
     var percent = range.value;
     var newTime = (percent * durationVideo) / 100;
+    if(percent==this.max){
+        newTime=durationVideo-0.5;
+        VideoIsEnd();
+     }
     player.setCurrentTime(newTime);
 
     }
@@ -428,6 +436,12 @@ function showElementsContaineronPause() {
     //console.log("showed");
 
 }
+
+
+function VideoIsEnd(){
+
+}
+
 
 /*         ->>>>>>>>>>>> FULL SCREEN <<<<<<<<<<<<<<<                      */
 
