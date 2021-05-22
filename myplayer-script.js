@@ -9,6 +9,10 @@ var videoH;
 
 var isPaused = false;
 
+var isPlaying = false;
+
+var isEnded = false;
+
 var containerElementsOnScreen = false;
 
 var count = 0;
@@ -42,20 +46,37 @@ var options = {
     controls: false,
     loop: false,
     byline: false,
-    autoplay: true
+    autoplay: true,
+    loop: false
 };
 var player = new Vimeo.Player('vimeo-video', options);
 
 player.on('play', function () {
     //console.log('played the video!');
     isPaused = false;
+    isPlaying = true;
+    isEnded = false;
     vhsBlur("0.05s");
 });
 
 player.on('pause', function () {
     //console.log('paused the video!');
     isPaused = true;
+    isPlaying = false;
+    isEnded = false;
     vhsBlur("0.01s");
+});
+
+player.on('ended', function () {
+    
+   
+    isPaused = false;
+    isPlaying = false;
+    isEnded =true;
+    
+    manageEnd();
+    vhsBlur("0.01s");
+    
 });
 
 player.on('bufferstart', function () {
@@ -72,7 +93,7 @@ player.on('bufferend', function () {
     if (isFirstTime) {
         player.pause();
         var vimeoVideo = document.getElementById('vimeo-video');
-        vimeoVideo.style.opacity = "8";
+        vimeoVideo.style.opacity = ".7";
         resizeContainerElements();
         isFirstTime = false;
         showElementsContaineronPause();
@@ -118,6 +139,11 @@ player.on('timeupdate', function (getAll) {
 
     document.getElementById("customRange1").value = "" + (getAll.percent * 100);
     setCustomRangeColor(getAll.percent * 100);
+    /*
+    if(seconds==durationVideo){
+        console.log("update:  video ended");
+        
+    }*/
 
 });
 
@@ -157,7 +183,7 @@ range.addEventListener('input', function () {
     showElementsContaineronPause();
     if(percent==this.max){
         newTime=durationVideo-0.5;
-        VideoIsEnd();
+        manageEnd();
      }
     
     if(!isPaused){
@@ -178,7 +204,7 @@ range.addEventListener('change', function () {
     var newTime = (percent * durationVideo) / 100;
     if(percent==this.max){
         newTime=durationVideo-0.5;
-        VideoIsEnd();
+        manageEnd();
      }
     player.setCurrentTime(newTime);
 
@@ -295,18 +321,46 @@ document.getElementById('playpause-button').onclick = function () {
             isFirstTimetoHide = false;
 
             timer = 0;
-        } else {
+        } else if(isPlaying) {
             showElementsContaineronPause();
             player.pause();
             ppbutton.innerHTML = "PAUSED";
             vimeoVideo.style.opacity = ".5";
             dateTitle.innerHTML = datetit;
 
+        }else if(isEnded){
+            
+            hideElementsContaineronPlay();
+            player.setCurrentTime(0);
+            player.play();
+
+            ppbutton.innerHTML = "PLAY&#9658";
+            dateTitle.innerHTML = datetit + "&#9658";
+
+            vimeoVideo.style.opacity = "1";
+            isFirstTimetoHide = false;
+               
         }
     } else {
         onMove();
     }
 }
+
+
+function manageEnd(){
+    var vimeoVideo = document.getElementById('vimeo-video');
+    var ppbutton = document.getElementById('playpause-button');
+    var dateTitle = document.getElementById('dateTitle');
+    
+    ppbutton.innerHTML = "&#x21ba";
+    vimeoVideo.style.opacity = ".5";
+    dateTitle.innerHTML = datetit;
+   
+    showElementsContaineronPause();
+    console.log("i am ended");
+}
+
+ 
 
 /*
 var isaClick=false;
@@ -364,7 +418,7 @@ function onMove() {
 
 //console.log("onMove: user is moving? " +userIsMovingProgress);
     justone++;
-    if (justone == 1) {
+    if (justone == 1 ) {
         console.log(">>>>>>>>>>>>>>>>>>fisrt move");
         showElementsContainerOnMove(true);
 
@@ -396,13 +450,16 @@ function showElementsContainerOnMove(show) {
     }
 
 
-    if (!isPaused || isFirstClick) {
+
+    if ((!isPaused || isFirstClick) && !isEnded) {
         if (show) {
 
             showElementsContaineronPause();
 
         } else {
+            
             hideElementsContaineronPlay();
+            
 
         }
 
@@ -438,9 +495,7 @@ function showElementsContaineronPause() {
 }
 
 
-function VideoIsEnd(){
 
-}
 
 
 /*         ->>>>>>>>>>>> FULL SCREEN <<<<<<<<<<<<<<<                      */
