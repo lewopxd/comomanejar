@@ -131,13 +131,14 @@ body.block {
   font-family: "vhs", Arial, sans-serif;
   font-weight: lighter;
   font-style: normal;
-   
+  font-size: 1.8vw;
   position: absolute;
   color: rgba(255, 255, 240, 0.795);
   cursor: default;
   bottom: 0;
   margin-bottom: 5vh;
   margin-left: 5vw;
+  transition : 1s font-size;
 }
 
 #playpause-button {

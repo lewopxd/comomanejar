@@ -159,10 +159,20 @@ var range = document.getElementById("customRange1");
 var d = 0.0;
 
 var countIfPause=true;
-
+var OldValue=range.value;
 range.addEventListener('input', function () {
 
 
+    if(range.value>OldValue){
+       //console.log("vaPaderecha");
+       manageInconPlay('derecha');
+       OldValue=range.value;
+    }
+    if(range.value<OldValue){
+       // console.log("vaPaIzquierda");
+       manageInconPlay('izquierda');
+        OldValue=range.value;
+     }
     userIsMovingProgress=true;
     var percent = range.value;
    
@@ -177,6 +187,7 @@ range.addEventListener('input', function () {
 
     var ctn = document.getElementById("time-counter");
     ctn.innerHTML = format(newTime) + " / " + format(durationVideo);
+    ctn.style.fontSize = '2.5vw';
 
     var value = (this.value - this.min) / (this.max - this.min) * 100;
     setCustomRangeColor(value);
@@ -195,6 +206,8 @@ range.addEventListener('input', function () {
 }, false);
 
 range.addEventListener('change', function () {
+    var ctn = document.getElementById("time-counter");
+    ctn.style.fontSize = '1.8vw';
     userIsMovingProgress =false;
    console.log("pregress: inputchange");
 
@@ -209,6 +222,18 @@ range.addEventListener('change', function () {
     player.setCurrentTime(newTime);
 
     }
+
+    if(isPaused){
+      manageInconPlay('pause');
+    }
+
+    if(isPlaying){
+        manageInconPlay('play');
+      }
+      if(isEnded){
+        manageInconPlay('end');
+      }
+
    onMove();
 }, false);
 
@@ -346,7 +371,27 @@ document.getElementById('playpause-button').onclick = function () {
     }
 }
 
+function manageInconPlay(cual){
+    var ppbutton = document.getElementById('playpause-button');
+    if(cual == 'derecha'){
+        ppbutton.innerHTML = "FF &#9658&#9658";
+    }
 
+    if(cual == 'izquierda'){
+        ppbutton.innerHTML = "&#9664&#9664 REW";
+    }
+
+    if(cual == 'play'){
+        ppbutton.innerHTML = "PLAY&#9658";
+    }
+    if(cual == 'pause'){
+        ppbutton.innerHTML = "PAUSED";
+    }
+    if(cual == 'end'){
+        ppbutton.innerHTML = "&#x21ba";
+    }
+
+}
 function manageEnd(){
     var vimeoVideo = document.getElementById('vimeo-video');
     var ppbutton = document.getElementById('playpause-button');
