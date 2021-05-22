@@ -26,7 +26,7 @@ var durationVideo;
 
 var userIsMovingProgress = false;
 
-
+var wasPausedBeforeMoving=false;
 
 /* ---------->  [ PLAYER ] <---------   */
 
@@ -62,6 +62,7 @@ player.on('bufferstart', function () {
     // console.log('start buffer the video!');
     hideElementsContaineronPlay();
     if (isFirstTime) {
+        player.play();
     player.setMuted(true);
     }
 });
@@ -69,7 +70,7 @@ player.on('bufferstart', function () {
 player.on('bufferend', function () {
     //console.log('bufferended the video!');
     if (isFirstTime) {
-        //player.pause();
+        player.pause();
         var vimeoVideo = document.getElementById('vimeo-video');
         vimeoVideo.style.opacity = "8";
         resizeContainerElements();
@@ -131,7 +132,10 @@ var range = document.getElementById("customRange1");
 
 var d = 0.0;
 
+var countIfPause=true;
+
 range.addEventListener('input', function () {
+
 
     userIsMovingProgress=true;
     var percent = range.value;
@@ -151,7 +155,11 @@ range.addEventListener('input', function () {
     var value = (this.value - this.min) / (this.max - this.min) * 100;
     setCustomRangeColor(value);
     showElementsContaineronPause();
+
+    if(!isPaused){
     player.setCurrentTime(newTime);
+
+    }
     //console.log('custom range: is pause?: '+isPaused);
 
 
@@ -160,12 +168,24 @@ range.addEventListener('input', function () {
 range.addEventListener('change', function () {
     userIsMovingProgress =false;
    console.log("pregress: inputchange");
+
+   if(isPaused){
+    var percent = range.value;
+    var newTime = (percent * durationVideo) / 100;
+    player.setCurrentTime(newTime);
+
+    }
    onMove();
 }, false);
 
 range.addEventListener('mousedown', function () {
     userIsMovingProgress =true;
    showElementsContaineronPause();
+
+   console.log("is pAused?"+isPaused);
+
+
+
 }, false);
 
 range.addEventListener('mouseup', function () {
