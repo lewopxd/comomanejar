@@ -59,18 +59,19 @@ player.on('pause', function () {
 player.on('bufferstart', function () {
     // console.log('start buffer the video!');
     hideElementsContaineronPlay();
+    player.setMuted(true);
 });
 
 player.on('bufferend', function () {
     //console.log('bufferended the video!');
     if (isFirstTime) {
-        player.pause();
+        //player.pause();
         var vimeoVideo = document.getElementById('vimeo-video');
         vimeoVideo.style.opacity = "8";
         resizeContainerElements();
         isFirstTime = false;
-showElementsContaineronPause();
-
+        showElementsContaineronPause();
+        player.setMuted(false);
 
     }
     
