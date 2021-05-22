@@ -130,6 +130,7 @@ var d = 0.0;
 
 range.addEventListener('input', function () {
 
+    userIsMovingProgress=true;
     var percent = range.value;
 
     var newTime = (percent * durationVideo) / 100;
@@ -149,6 +150,10 @@ range.addEventListener('input', function () {
     player.setCurrentTime(newTime);
 
 
+}, false);
+
+range.addEventListener('inputchange', function () {
+    userIsMovingProgress =false;
 }, false);
 
 
