@@ -26,6 +26,8 @@ var durationVideo;
 
 var userIsMovingProgress = false;
 
+
+
 /* ---------->  [ PLAYER ] <---------   */
 
 /*playsinline	true	
@@ -59,7 +61,9 @@ player.on('pause', function () {
 player.on('bufferstart', function () {
     // console.log('start buffer the video!');
     hideElementsContaineronPlay();
+    if (isFirstTime) {
     player.setMuted(true);
+    }
 });
 
 player.on('bufferend', function () {
