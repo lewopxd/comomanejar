@@ -1,8 +1,0 @@
-{
-    "appService.zipIgnorePattern": [
-        "node_modules{,/**}",
-        ".vscode{,/**}"
-    ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/6d09abe3-6fd4-4352-a9d7-fbd8ae2dbfc8/resourceGroups/lewop-mayo-2021/providers/Microsoft.Web/sites/comomanejar",
-    "appService.deploySubpath": "."
-}

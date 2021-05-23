@@ -257,7 +257,7 @@ range.addEventListener('mouseup', function () {
 function setCustomRangeColor(value) {
     var CustomRange = document.getElementById("customRange1");
 
-    CustomRange.disabled = true;
+  //  CustomRange.disabled = true;
 
     var color1 = '#ffffff9a';
     var color2 = 'rgba(255, 255, 255, 0.116)';
