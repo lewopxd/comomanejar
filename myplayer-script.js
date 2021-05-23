@@ -40,14 +40,14 @@ to automatically go fullscreen on playback
  set this parameter to false.*/
 
 var options = {
-    id: 551313974,
-    /*59777392*/
+    id: 59777392 ,    /*551313974*/
     title: false,
     controls: false,
     loop: false,
     byline: false,
     autoplay: true,
     loop: false
+   
 };
 var player = new Vimeo.Player('vimeo-video', options);
 
@@ -257,6 +257,8 @@ range.addEventListener('mouseup', function () {
 function setCustomRangeColor(value) {
     var CustomRange = document.getElementById("customRange1");
 
+    CustomRange.disabled = true;
+
     var color1 = '#ffffff9a';
     var color2 = 'rgba(255, 255, 255, 0.116)';
 
@@ -378,7 +380,7 @@ function manageInconPlay(cual){
     }
 
     if(cual == 'izquierda'){
-        ppbutton.innerHTML = "&#9664&#9664 REW";
+        ppbutton.innerHTML = "&#9668&#9668 REW";
     }
 
     if(cual == 'play'){
