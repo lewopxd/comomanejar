@@ -43,6 +43,8 @@ var userIsMovingProgress = false;
 
 var wasPausedBeforeMoving=false;
 
+var userInMobile = isMobile();
+
 
 
 
@@ -551,7 +553,7 @@ function onMove() {
 
 //console.log("onMove: user is moving? " +userIsMovingProgress);
     justone++;
-    if (justone == 1 ) {
+    if (justone == 1 || userInMobile) {
         console.log(">>>>>>>>>>>>>>>>>>fisrt move");
         showElementsContainerOnMove(true);
 
@@ -751,3 +753,30 @@ objRef.visible
 console.log(objRef);
 
 */
+
+
+
+
+   
+   
+   function isMobile(){
+   
+     var badScreen = false;
+   if (screen.width <= 699) {
+   console.log("the scren is too small");
+    badScreen= true;
+   }
+   
+     var mobileNav=false;
+   if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      console.log('Esto es un dispositivo móvil');
+     mobileNav=true;
+     console.log("this is a mobile browser");
+   }
+     
+     if(badScreen||mobileNav){
+       return true;
+     }else{
+       return false;
+     }
+   }
