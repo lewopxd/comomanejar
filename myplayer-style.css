@@ -5,9 +5,7 @@ body {
   padding-bottom: 0;
   background-color: #000000;
 }
-body.block {
-  cursor: none !important;
-}
+ 
 #mainContainer {
   width: 100%;
   /*  vertical allignmetn     */
@@ -358,6 +356,7 @@ body.block {
     text-shadow: 2px 0.5px 2px #ea36af, -1px -0.5px 2px #75fa69;
   }
 }
+ 
 
 @font-face {
   font-family: "vhs";

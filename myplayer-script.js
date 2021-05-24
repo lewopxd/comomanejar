@@ -1,11 +1,22 @@
 console.log("hola mundo");
 
 var datetit = "23/07/1980";
+var chapterNum = 1;
+var chaperTitle = "USTED Y LA REVERSA";
+var youCanGoFF  = false;
+var youCanGoRW  = true;
+var youCanViewSmall = true;
+
+
+
+
+
 var screenW = window.innerWidth;
 var screenH = window.innerHeight;
 
 var videoW;
 var videoH;
+var currentTimePercent;
 
 var isPaused = false;
 
@@ -31,6 +42,17 @@ var durationVideo;
 var userIsMovingProgress = false;
 
 var wasPausedBeforeMoving=false;
+
+
+
+
+/* ---------->   [ Setting variables ] <--------*/
+
+document.getElementById('dateTitle').innerHTML=datetit;
+document.getElementById('chapterTitle').innerHTML=chapterNum+" "+chaperTitle ;
+
+ 
+
 
 /* ---------->  [ PLAYER ] <---------   */
 
@@ -129,7 +151,8 @@ player.on('timeupdate', function (getAll) {
     percentage = (getAll.percent * 100) + "%";
     seconds = getAll.seconds;
     durationVideo=vdoEndTym;
-
+    
+    currentTimePercent = getAll.percent;
 
 
     var ctn = document.getElementById("time-counter");
@@ -160,22 +183,34 @@ var d = 0.0;
 
 var countIfPause=true;
 var OldValue=range.value;
+var lockRange=false;
+ 
+
 range.addEventListener('input', function () {
-
-
+  
     if(range.value>OldValue){
        //console.log("vaPaderecha");
        manageInconPlay('derecha');
-       OldValue=range.value;
+        
+       if(!youCanGoFF){
+            lockRange=true;
+           
+            console.log("no puedes adelantar");
+       }
     }
     if(range.value<OldValue){
        // console.log("vaPaIzquierda");
        manageInconPlay('izquierda');
-        OldValue=range.value;
+       
+        if(!youCanGoRW){
+            lockRange=true;
+     
+            console.log("no puedes atrasar");
+        }
      }
     userIsMovingProgress=true;
-    var percent = range.value;
-   
+
+    var percent = range.value;   
     var newTime = (percent * durationVideo) / 100;
 
     //console.log(percent + "  -  new val: " + newTime);
@@ -197,21 +232,33 @@ range.addEventListener('input', function () {
         manageEnd();
      }
     
-    if(!isPaused){
+    if(isPlaying && !lockRange){
     player.setCurrentTime(newTime);
+    
     }
+        lockRange=false;
+       
+    
     //console.log('custom range: is pause?: '+isPaused);
-
+   // oldValue=currentTimePercent * 100;
+   OldValue = range.value;
 
 }, false);
 
+var oldRangeValue = range.value;
+var oldRangevalueOnPlay = currentTimePercent;
+var lockRangeOnPause = false;
+
+
 range.addEventListener('change', function () {
+ 
+
     var ctn = document.getElementById("time-counter");
     ctn.style.fontSize = '1.8vw';
     userIsMovingProgress =false;
    console.log("pregress: inputchange");
 
-   if(isPaused){   
+ 
     
     var percent = range.value;
     var newTime = (percent * durationVideo) / 100;
@@ -219,9 +266,45 @@ range.addEventListener('change', function () {
         newTime=durationVideo-0.5;
         manageEnd();
      }
-    player.setCurrentTime(newTime);
 
+     if(range.value>oldRangeValue){
+        //console.log("vaPaderecha");
+       
+        oldRangeValue=range.value;
+        if(!youCanGoFF){
+            lockRangeOnPause=true;
+            
+             console.log("pause: no puedes adelantar");
+        }
+     }
+     if(range.value<oldRangeValue){
+        // console.log("vaPaIzquierda");
+       
+        oldRangeValue=range.value;
+         if(!youCanGoRW){
+            lockRangeOnPause=true;
+      
+             console.log("pause: no puedes atrasar");
+         }
+      }
+
+
+      console.log(oldRangeValue);
+    if( isPaused && !lockRangeOnPause){
+    player.setCurrentTime(newTime);
+    }else{
+        if(!isPlaying){
+        range.value = "" + (currentTimePercent * 100);
+        setCustomRangeColor(currentTimePercent * 100);
+        lockRangeOnPause=false;
+       oldRangeValue=currentTimePercent * 100;
+       
+        }
     }
+    
+     
+
+ 
 
     if(isPaused){
       manageInconPlay('pause');
@@ -229,12 +312,15 @@ range.addEventListener('change', function () {
 
     if(isPlaying){
         manageInconPlay('play');
+       
       }
       if(isEnded){
         manageInconPlay('end');
       }
 
    onMove();
+   isFirstTimeInPause=true;
+   OldValue=currentTimePercent*100;
 }, false);
 
 range.addEventListener('mousedown', function () {
